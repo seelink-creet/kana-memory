@@ -1,343 +1,170 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f172a" />
-  <title>五十音科学记忆</title>
-  <style>
-    :root{
-      --bg:#0b1020;
-      --panel:#121a2e;
-      --panel2:#19233b;
-      --text:#f8fafc;
-      --muted:#94a3b8;
-      --accent:#7c3aed;
-      --accent2:#22c55e;
-      --danger:#ef4444;
-      --warn:#f59e0b;
-      --line:rgba(255,255,255,.08);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-      background:linear-gradient(180deg,#0b1020 0%,#10182b 100%);
-      color:var(--text);
-      min-height:100vh;
-    }
-    button,input,select{font:inherit}
-    .app{max-width:720px;margin:0 auto;padding:18px 16px 110px}
-    .top{
-      position:sticky;top:0;z-index:10;
-      margin:-18px -16px 18px;padding:18px 16px 14px;
-      background:rgba(11,16,32,.92);backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--line)
-    }
-    h1{font-size:23px;margin:0 0 4px}
-    .sub{color:var(--muted);font-size:13px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .card{
-      background:linear-gradient(180deg,var(--panel),var(--panel2));
-      border:1px solid var(--line);
-      border-radius:20px;padding:16px;
-      box-shadow:0 14px 28px rgba(0,0,0,.18)
-    }
-    .stat strong{font-size:24px;display:block}
-    .stat span{font-size:12px;color:var(--muted)}
-    .section-title{font-size:16px;margin:22px 0 10px}
-    .row{display:flex;gap:10px;align-items:center}
-    .row.wrap{flex-wrap:wrap}
-    .pill{
-      border:1px solid var(--line);background:#0f172a;color:var(--text);
-      border-radius:999px;padding:9px 13px
-    }
-    .pill.active{background:var(--accent);border-color:transparent}
-    .primary,.secondary,.danger{
-      border:0;border-radius:14px;padding:14px 16px;font-weight:700
-    }
-    .primary{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:white}
-    .secondary{background:#24304b;color:white}
-    .danger{background:#4b1f24;color:#fecaca}
-    .full{width:100%}
-    .lesson{
-      display:flex;justify-content:space-between;gap:12px;align-items:center;
-      padding:14px 0;border-bottom:1px solid var(--line)
-    }
-    .lesson:last-child{border-bottom:0}
-    .lesson small{color:var(--muted)}
-    .progress{height:8px;background:#0f172a;border-radius:999px;overflow:hidden;margin-top:8px}
-    .bar{height:100%;background:linear-gradient(90deg,#8b5cf6,#22c55e);width:0%}
-    .screen{display:none}
-    .screen.active{display:block}
-    .study-card{
-      min-height:390px;display:flex;flex-direction:column;
-      align-items:center;justify-content:center;text-align:center
-    }
-    .kana{font-size:112px;line-height:1;margin:12px 0 16px}
-    .roman{font-size:28px;color:#c4b5fd;margin-bottom:8px}
-    .hint{color:var(--muted);min-height:48px}
-    .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-top:16px}
-    .choice{
-      padding:16px;border-radius:14px;border:1px solid var(--line);
-      background:#172036;color:white;font-size:20px
-    }
-    .choice.correct{background:#14532d}
-    .choice.wrong{background:#7f1d1d}
-    .feedback{min-height:34px;margin:12px 0;font-weight:700}
-    .footer-nav{
-      position:fixed;bottom:0;left:0;right:0;background:rgba(11,16,32,.96);
-      border-top:1px solid var(--line);backdrop-filter:blur(16px);padding:10px 12px calc(10px + env(safe-area-inset-bottom))
-    }
-    .footer-inner{max-width:720px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-    .navbtn{background:transparent;color:var(--muted);border:0;padding:10px;border-radius:12px}
-    .navbtn.active{background:#202b45;color:white}
-    .mini{font-size:12px;color:var(--muted)}
-    .schedule{display:grid;gap:8px}
-    .schedule-item{display:flex;justify-content:space-between;padding:12px;border-radius:14px;background:#111a2d}
-    .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:#26324e}
-    .hidden{display:none!important}
-    .center{text-align:center}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<title>五十音科学记忆 Pro</title>
+<style>
+:root{--bg:#0b1020;--p:#141d32;--p2:#1c2945;--line:#ffffff14;--txt:#f8fafc;--mut:#94a3b8;--vio:#7c3aed;--green:#22c55e}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#09101e,#111a30);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;min-height:100vh}button,select{font:inherit}
+.app{max-width:760px;margin:auto;padding:16px 14px 110px}.top{position:sticky;top:0;z-index:5;margin:-16px -14px 16px;padding:16px 14px 13px;background:#09101eeb;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+h1{font-size:23px;margin:0}.sub,.mini,.hint{color:var(--mut);font-size:12px}.screen{display:none}.screen.active{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:linear-gradient(var(--p),var(--p2));border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:0 14px 30px #0003}
+.stat strong{display:block;font-size:24px}.stat span{font-size:12px;color:var(--mut)}.section{font-size:16px;margin:20px 0 10px}
+.primary,.secondary,.danger,.ghost{border:0;border-radius:14px;padding:13px 15px;font-weight:700;color:white}.primary{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}.secondary{background:#263451}.danger{background:#5b2028}.ghost{background:#111827;border:1px solid var(--line)}.full{width:100%}
+.row{display:flex;gap:9px;align-items:center}.wrap{flex-wrap:wrap}.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mode{padding:14px;border-radius:16px;background:#111a2f;border:1px solid var(--line);color:white;text-align:left}.mode strong{display:block}.mode small{color:var(--mut)}
+.lesson{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.lesson:last-child{border:0}.lesson small{color:var(--mut)}.pill{border:1px solid var(--line);background:#111827;color:white;padding:9px 12px;border-radius:999px}
+.progress{height:8px;background:#0f172a;border-radius:99px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#8b5cf6,#22c55e)}
+.practice{min-height:410px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.kana{font-size:108px;line-height:1;margin:12px}.roman{font-size:28px;color:#c4b5fd}.hint{min-height:38px}.feedback{min-height:30px;font-weight:700}
+.audio{width:86px;height:86px;border:0;border-radius:50%;background:linear-gradient(135deg,#0ea5e9,#2563eb);color:white;font-size:34px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-top:12px}.choice{border:1px solid var(--line);background:#17213a;color:white;padding:15px;border-radius:14px;font-size:20px}.correct{background:#14532d!important}.wrong{background:#7f1d1d!important}
+.rating{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:12px}.rating button{border:0;color:white;border-radius:12px;padding:12px;font-weight:700}.r0{background:#7f1d1d}.r1{background:#92400e}.r2{background:#166534}.r3{background:#1d4ed8}.hidden{display:none!important}
+.canvas-wrap{width:100%;max-width:430px;aspect-ratio:1;position:relative;margin:12px auto;background:white;border-radius:18px;overflow:hidden}.gridline{position:absolute;inset:0;pointer-events:none;border:2px solid #64748b73;background:linear-gradient(90deg,transparent 49.7%,#64748b55 49.7%,#64748b55 50.3%,transparent 50.3%),linear-gradient(transparent 49.7%,#64748b55 49.7%,#64748b55 50.3%,transparent 50.3%)}canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:210px;color:#ef444455;pointer-events:none}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two .canvas-wrap{margin:0}.two .overlay{font-size:110px}.toolbar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:430px;margin:auto}
+.footer{position:fixed;bottom:0;left:0;right:0;background:#09101ef5;border-top:1px solid var(--line);padding:9px 10px calc(9px + env(safe-area-inset-bottom))}.footer-inner{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.nav{border:0;background:transparent;color:var(--mut);padding:10px;border-radius:12px}.nav.active{background:#202c47;color:white}
+.setting{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}select{background:#111827;color:white;border:1px solid var(--line);border-radius:10px;padding:8px}
+@media(max-width:420px){.mode-grid{grid-template-columns:1fr}.kana{font-size:92px}.overlay{font-size:180px}}
+</style>
 </head>
 <body>
 <div class="app">
-  <header class="top">
-    <h1>五十音科学记忆</h1>
-    <div class="sub">少量分组 · 主动回忆 · 间隔复习 · 错题强化</div>
-  </header>
+<header class="top"><h1>五十音科学记忆 Pro</h1><div class="sub">声音 ↔ 平假名 ↔ 片假名 ↔ 主动书写</div></header>
 
-  <main id="home" class="screen active">
-    <div class="grid">
-      <div class="card stat"><strong id="learnedCount">0</strong><span>已学习假名</span></div>
-      <div class="card stat"><strong id="dueCount">0</strong><span>今日待复习</span></div>
-      <div class="card stat"><strong id="accuracy">0%</strong><span>累计正确率</span></div>
-      <div class="card stat"><strong id="streak">0</strong><span>连续学习天数</span></div>
-    </div>
+<section id="home" class="screen active">
+<div class="grid">
+ <div class="card stat"><strong id="known">0</strong><span>已接触音节</span></div>
+ <div class="card stat"><strong id="due">0</strong><span>今日待复习</span></div>
+ <div class="card stat"><strong id="acc">0%</strong><span>累计正确率</span></div>
+ <div class="card stat"><strong id="writeRate">0%</strong><span>书写掌握率</span></div>
+</div>
+<h2 class="section">今日科学训练</h2>
+<div class="card"><div id="tip"></div><div class="progress" style="margin-top:12px"><div class="bar" id="dailyBar"></div></div><div class="mini" id="dailyTxt" style="margin-top:7px"></div><button class="primary full" style="margin-top:14px" onclick="startDaily()">开始今日训练</button></div>
+<h2 class="section">训练模式</h2>
+<div class="mode-grid">
+<button class="mode" onclick="startFlash()"><strong>科学闪卡</strong><small>无选项主动回忆</small></button>
+<button class="mode" onclick="startAudio()"><strong>听音辨认</strong><small>点击发音，再选字形</small></button>
+<button class="mode" onclick="startPair()"><strong>平片桥接</strong><small>同音的两种字形</small></button>
+<button class="mode" onclick="startWriting(false)"><strong>看音书写</strong><small>根据罗马音独立书写</small></button>
+<button class="mode" onclick="startWriting(true)"><strong>听写书写</strong><small>只听声音，自行判断</small></button>
+<button class="mode" onclick="startConfusion()"><strong>易混淆专项</strong><small>シ/ツ、ソ/ン、ぬ/め</small></button>
+</div>
+<h2 class="section">分组课程</h2><div class="card" id="lessons"></div>
+</section>
 
-    <h2 class="section-title">今日建议</h2>
-    <div class="card">
-      <div id="recommendText">先学习 5 个新假名，再完成今日复习。</div>
-      <div class="progress"><div class="bar" id="dailyBar"></div></div>
-      <div class="mini" id="dailyText" style="margin-top:8px">今日完成 0 / 15 题</div>
-      <button class="primary full" style="margin-top:14px" onclick="startRecommended()">开始今日训练</button>
-    </div>
+<section id="practice" class="screen">
+<div class="card practice">
+<div class="mini" id="label"></div>
+<button id="audioBtn" class="audio hidden" onclick="speak()">🔊</button>
+<div id="mainKana" class="kana"></div><div id="mainRoman" class="roman hidden"></div>
+<div id="hint" class="hint"></div><div id="feedback" class="feedback"></div>
+<div id="choices" class="choices"></div>
+<button id="reveal" class="secondary full hidden" onclick="revealCard()">显示答案</button>
+<div id="ratings" class="rating hidden">
+<button class="r0" onclick="rate(0)">忘记了</button><button class="r1" onclick="rate(1)">困难</button>
+<button class="r2" onclick="rate(2)">想起来了</button><button class="r3" onclick="rate(3)">非常熟练</button>
+</div></div>
+<div class="row" style="margin-top:10px"><button class="secondary" style="flex:1" onclick="finish()">结束</button><div class="card" style="flex:1;text-align:center;padding:12px" id="pos"></div></div>
+</section>
 
-    <h2 class="section-title">学习分组</h2>
-    <div class="card" id="lessonList"></div>
-  </main>
+<section id="writing" class="screen">
+<div class="card">
+<div class="mini" id="writingLabel"></div>
+<div class="row" style="justify-content:center;margin:8px"><button class="audio" onclick="speak()">🔊</button></div>
+<div id="writePrompt" class="roman" style="text-align:center"></div><div id="writeInstruction" class="hint" style="text-align:center"></div>
+<div id="single" class="canvas-wrap"><div class="gridline"></div><canvas id="canvasA"></canvas><div id="overlayA" class="overlay hidden"></div></div>
+<div id="double" class="two hidden">
+<div class="canvas-wrap"><div class="gridline"></div><canvas id="canvasB"></canvas><div id="overlayB" class="overlay hidden"></div></div>
+<div class="canvas-wrap"><div class="gridline"></div><canvas id="canvasC"></canvas><div id="overlayC" class="overlay hidden"></div></div>
+</div>
+<div class="toolbar"><button class="ghost" onclick="undo()">撤销</button><button class="ghost" onclick="clearCanvases()">清空</button><button class="primary" onclick="showAnswer()">查看答案</button></div>
+<div id="writeRatings" class="rating hidden">
+<button class="r0" onclick="rateWrite(0)">写错了</button><button class="r1" onclick="rateWrite(1)">基本对</button>
+<button class="r2" onclick="rateWrite(2)">写对了</button><button class="r3" onclick="rateWrite(3)">很熟练</button>
+</div></div>
+<div class="row" style="margin-top:10px"><button class="secondary" style="flex:1" onclick="finish()">结束</button><div class="card" style="flex:1;text-align:center;padding:12px" id="writePos"></div></div>
+</section>
 
-  <main id="study" class="screen">
-    <div class="card study-card">
-      <div class="mini" id="modeLabel">学习</div>
-      <div class="kana" id="kanaDisplay">あ</div>
-      <div class="roman hidden" id="romanDisplay">a</div>
-      <div class="hint" id="hintText">先观察字形，再尝试回忆读音。</div>
-      <div class="feedback" id="feedback"></div>
-      <div class="choice-grid" id="choices"></div>
-      <button id="revealBtn" class="secondary full" onclick="revealAnswer()">显示答案</button>
-      <div class="row full" id="selfButtons" style="margin-top:10px">
-        <button class="danger" style="flex:1" onclick="gradeSelf(false)">没记住</button>
-        <button class="primary" style="flex:1" onclick="gradeSelf(true)">记住了</button>
-      </div>
-    </div>
-    <div class="row" style="margin-top:12px">
-      <button class="secondary" style="flex:1" onclick="exitStudy()">结束</button>
-      <div class="card center" style="flex:1;padding:12px"><span id="sessionProgress">1 / 5</span></div>
-    </div>
-  </main>
-
-  <main id="review" class="screen">
-    <h2 class="section-title" style="margin-top:0">复习计划</h2>
-    <div class="card schedule" id="scheduleList"></div>
-    <h2 class="section-title">错题本</h2>
-    <div class="card">
-      <div id="wrongList" class="row wrap"></div>
-      <button class="primary full" style="margin-top:14px" onclick="startWrongReview()">集中强化错题</button>
-    </div>
-    <button class="danger full" style="margin-top:18px" onclick="resetData()">清空全部进度</button>
-  </main>
+<section id="progress" class="screen">
+<h2 class="section" style="margin-top:0">能力分布</h2>
+<div class="grid">
+<div class="card stat"><strong id="hs">0%</strong><span>平假名识别</span></div>
+<div class="card stat"><strong id="ks">0%</strong><span>片假名识别</span></div>
+<div class="card stat"><strong id="as">0%</strong><span>听音识别</span></div>
+<div class="card stat"><strong id="ws">0%</strong><span>主动书写</span></div>
+</div>
+<h2 class="section">个人易错项</h2><div class="card"><div id="wrongList" class="row wrap"></div></div>
+<h2 class="section">语音设置</h2><div class="card"><div class="setting"><span>语速</span><select id="speed"><option value=".75">慢速</option><option value=".9" selected>适中</option><option value="1">正常</option></select></div><div class="setting"><span>播放方式</span><span class="mini">仅点击播放</span></div></div>
+<button class="danger full" style="margin-top:18px" onclick="resetData()">清空全部进度</button>
+</section>
 </div>
 
-<nav class="footer-nav">
-  <div class="footer-inner">
-    <button class="navbtn active" onclick="showScreen('home',this)">首页</button>
-    <button class="navbtn" onclick="startDueReview()">复习</button>
-    <button class="navbtn" onclick="showScreen('review',this)">进度</button>
-  </div>
-</nav>
+<nav class="footer"><div class="footer-inner">
+<button class="nav active" onclick="show('home',this)">首页</button><button class="nav" onclick="startFlash()">闪卡</button><button class="nav" onclick="startWriting(true)">听写</button><button class="nav" onclick="show('progress',this)">进度</button>
+</div></nav>
 
 <script>
-const groups = [
-  {name:'あ行', items:[['あ','a'],['い','i'],['う','u'],['え','e'],['お','o']]},
-  {name:'か行', items:[['か','ka'],['き','ki'],['く','ku'],['け','ke'],['こ','ko']]},
-  {name:'さ行', items:[['さ','sa'],['し','shi'],['す','su'],['せ','se'],['そ','so']]},
-  {name:'た行', items:[['た','ta'],['ち','chi'],['つ','tsu'],['て','te'],['と','to']]},
-  {name:'な行', items:[['な','na'],['に','ni'],['ぬ','nu'],['ね','ne'],['の','no']]},
-  {name:'は行', items:[['は','ha'],['ひ','hi'],['ふ','fu'],['へ','he'],['ほ','ho']]},
-  {name:'ま行', items:[['ま','ma'],['み','mi'],['む','mu'],['め','me'],['も','mo']]},
-  {name:'や行', items:[['や','ya'],['ゆ','yu'],['よ','yo']]},
-  {name:'ら行', items:[['ら','ra'],['り','ri'],['る','ru'],['れ','re'],['ろ','ro']]},
-  {name:'わ行', items:[['わ','wa'],['を','wo'],['ん','n']]}
+const groups=[
+{name:'あ行',x:[['あ','ア','a'],['い','イ','i'],['う','ウ','u'],['え','エ','e'],['お','オ','o']]},
+{name:'か行',x:[['か','カ','ka'],['き','キ','ki'],['く','ク','ku'],['け','ケ','ke'],['こ','コ','ko']]},
+{name:'さ行',x:[['さ','サ','sa'],['し','シ','shi'],['す','ス','su'],['せ','セ','se'],['そ','ソ','so']]},
+{name:'た行',x:[['た','タ','ta'],['ち','チ','chi'],['つ','ツ','tsu'],['て','テ','te'],['と','ト','to']]},
+{name:'な行',x:[['な','ナ','na'],['に','ニ','ni'],['ぬ','ヌ','nu'],['ね','ネ','ne'],['の','ノ','no']]},
+{name:'は行',x:[['は','ハ','ha'],['ひ','ヒ','hi'],['ふ','フ','fu'],['へ','ヘ','he'],['ほ','ホ','ho']]},
+{name:'ま行',x:[['ま','マ','ma'],['み','ミ','mi'],['む','ム','mu'],['め','メ','me'],['も','モ','mo']]},
+{name:'や行',x:[['や','ヤ','ya'],['ゆ','ユ','yu'],['よ','ヨ','yo']]},
+{name:'ら行',x:[['ら','ラ','ra'],['り','リ','ri'],['る','ル','ru'],['れ','レ','re'],['ろ','ロ','ro']]},
+{name:'わ行',x:[['わ','ワ','wa'],['を','ヲ','wo'],['ん','ン','n']]}
 ];
-const allItems = groups.flatMap(g=>g.items.map(i=>({kana:i[0],roman:i[1],group:g.name})));
-const intervals = [10*60*1000, 24*60*60*1000, 3*24*60*60*1000, 7*24*60*60*1000, 14*24*60*60*1000, 30*24*60*60*1000];
+const items=groups.flatMap(g=>g.x.map(x=>({h:x[0],k:x[1],r:x[2],g:g.name})));
+const conf=[['shi','tsu'],['so','n'],['nu','me','ne','re'],['ru','ro'],['sa','ki','chi','ra']];
+const ints=[600000,86400000,259200000,604800000,1209600000,2592000000];
+let state=JSON.parse(localStorage.getItem('kanaPro')||'null')||{c:{},total:0,correct:0,daily:0,date:''};
+let session=[],idx=0,mode='',current=null,target='h',dictation=false,strokes=[],active=null;
 
-let state = JSON.parse(localStorage.getItem('kanaScienceState')||'null') || {
-  cards:{}, total:0, correct:0, dailyCount:0, lastStudyDate:'', streak:0
-};
-let session = [], index = 0, currentMode='learn', revealed=false;
-
-function todayKey(){ return new Date().toISOString().slice(0,10); }
-function save(){ localStorage.setItem('kanaScienceState',JSON.stringify(state)); render(); }
-function ensureDaily(){
-  const t=todayKey();
-  if(state.lastStudyDate!==t){
-    const y=new Date(); y.setDate(y.getDate()-1);
-    const yk=y.toISOString().slice(0,10);
-    state.streak = state.lastStudyDate===yk ? state.streak+1 : 0;
-    state.dailyCount=0;
-  }
-}
-function card(k){
-  if(!state.cards[k]) state.cards[k]={level:0,due:0,wrong:0,seen:false};
-  return state.cards[k];
-}
+function record(i){if(!state.c[i.r])state.c[i.r]={seen:false,due:0,wrong:0,h:0,k:0,a:0,w:0};return state.c[i.r]}
+function save(){localStorage.setItem('kanaPro',JSON.stringify(state));render()}
+function show(id,b){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active')}
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function avg(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:0}
+function today(){return new Date().toISOString().slice(0,10)}
 function render(){
-  ensureDaily();
-  const learned=Object.values(state.cards).filter(c=>c.seen).length;
-  const due=allItems.filter(i=>card(i.kana).seen && card(i.kana).due<=Date.now()).length;
-  document.getElementById('learnedCount').textContent=learned;
-  document.getElementById('dueCount').textContent=due;
-  document.getElementById('accuracy').textContent=state.total?Math.round(state.correct/state.total*100)+'%':'0%';
-  document.getElementById('streak').textContent=state.streak;
-  const goal=15, done=Math.min(goal,state.dailyCount||0);
-  document.getElementById('dailyBar').style.width=(done/goal*100)+'%';
-  document.getElementById('dailyText').textContent=`今日完成 ${done} / ${goal} 题`;
-  document.getElementById('recommendText').textContent = due>0 ? `你有 ${due} 个假名到期，优先完成复习。` : learned<allItems.length ? '今天学习 5 个新假名，并穿插旧题。' : '今天完成一次混合复习，保持反应速度。';
-  renderLessons(); renderWrong(); renderSchedule();
+ if(state.date!==today())state.daily=0;
+ const seen=items.filter(i=>record(i).seen).length,due=items.filter(i=>record(i).seen&&record(i).due<=Date.now()).length;
+ known.textContent=seen;window.due.textContent=due;acc.textContent=state.total?Math.round(state.correct/state.total*100)+'%':'0%';writeRate.textContent=Math.round(avg(items.map(i=>record(i).w))/3*100)+'%';
+ dailyBar.style.width=Math.min(100,state.daily/15*100)+'%';dailyTxt.textContent=`今日 ${state.daily} / 15 题`;tip.textContent=due?`有 ${due} 个音节到期，优先复习。`:'建议混合完成识别、听音、平片转换和书写。';
+ lessons.innerHTML='';groups.forEach((g,n)=>{let learned=g.x.filter(x=>record({r:x[2]}).seen).length;let d=document.createElement('div');d.className='lesson';d.innerHTML=`<div><strong>${g.name}</strong><br><small>${g.x.map(x=>x[0]+' '+x[1]).join('　')}</small></div><button class="pill" onclick="startGroup(${n})">${learned}/${g.x.length}</button>`;lessons.appendChild(d)});
+ hs.textContent=Math.round(avg(items.map(i=>record(i).h))/3*100)+'%';ks.textContent=Math.round(avg(items.map(i=>record(i).k))/3*100)+'%';as.textContent=Math.round(avg(items.map(i=>record(i).a))/3*100)+'%';ws.textContent=Math.round(avg(items.map(i=>record(i).w))/3*100)+'%';
+ let wrong=items.filter(i=>record(i).wrong).sort((a,b)=>record(b).wrong-record(a).wrong);wrongList.innerHTML=wrong.length?'':'<span class="mini">暂无错题</span>';wrong.slice(0,20).forEach(i=>{let s=document.createElement('span');s.className='pill';s.textContent=`${i.h}/${i.k} ×${record(i).wrong}`;wrongList.appendChild(s)})
 }
-function renderLessons(){
-  const box=document.getElementById('lessonList'); box.innerHTML='';
-  groups.forEach((g,idx)=>{
-    const n=g.items.filter(i=>card(i[0]).seen).length;
-    const row=document.createElement('div'); row.className='lesson';
-    row.innerHTML=`<div><strong>${g.name}</strong><br><small>${g.items.map(i=>i[0]).join('　')}</small></div>
-    <button class="pill ${n===g.items.length?'active':''}" onclick="startGroup(${idx})">${n}/${g.items.length}</button>`;
-    box.appendChild(row);
-  });
-}
-function showScreen(id,btn){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-}
-function startRecommended(){
-  const due=allItems.filter(i=>card(i.kana).seen && card(i.kana).due<=Date.now());
-  if(due.length) startSession(due.slice(0,15),'review');
-  else{
-    const unseen=allItems.filter(i=>!card(i.kana).seen).slice(0,5);
-    startSession(unseen.length?unseen:shuffle([...allItems]).slice(0,15), unseen.length?'learn':'review');
-  }
-}
-function startGroup(idx){ startSession(groups[idx].items.map(i=>({kana:i[0],roman:i[1],group:groups[idx].name})),'learn'); }
-function startDueReview(){
-  const due=allItems.filter(i=>card(i.kana).seen && card(i.kana).due<=Date.now());
-  startSession(due.length?due:shuffle(allItems.filter(i=>card(i.kana).seen)).slice(0,10),'review');
-}
-function startWrongReview(){
-  const wrong=allItems.filter(i=>card(i.kana).wrong>0).sort((a,b)=>card(b.kana).wrong-card(a.kana).wrong);
-  if(!wrong.length){ alert('目前没有错题。'); return; }
-  startSession(wrong.slice(0,15),'review');
-}
-function startSession(items,mode){
-  if(!items.length){ alert('先学习一组假名。'); return; }
-  session=shuffle([...items]); index=0; currentMode=mode; showScreen('study');
-  nextCard();
-}
-function nextCard(){
-  if(index>=session.length){ alert('本轮训练完成。'); save(); showScreen('home'); return; }
-  revealed=false;
-  const item=session[index];
-  document.getElementById('kanaDisplay').textContent=item.kana;
-  document.getElementById('romanDisplay').textContent=item.roman;
-  document.getElementById('romanDisplay').classList.add('hidden');
-  document.getElementById('feedback').textContent='';
-  document.getElementById('sessionProgress').textContent=`${index+1} / ${session.length}`;
-  document.getElementById('modeLabel').textContent=currentMode==='learn'?'主动回忆学习':'间隔复习';
-  const choices=document.getElementById('choices');
-  if(currentMode==='review'){
-    choices.classList.remove('hidden');
-    document.getElementById('revealBtn').classList.add('hidden');
-    document.getElementById('selfButtons').classList.add('hidden');
-    const opts=shuffle([item.roman,...shuffle(allItems.filter(x=>x.roman!==item.roman)).slice(0,3).map(x=>x.roman)]);
-    choices.innerHTML='';
-    opts.forEach(o=>{
-      const b=document.createElement('button'); b.className='choice'; b.textContent=o;
-      b.onclick=()=>answerChoice(b,o===item.roman);
-      choices.appendChild(b);
-    });
-    document.getElementById('hintText').textContent='请在 1 秒内选出正确读音。';
-  }else{
-    choices.classList.add('hidden');
-    document.getElementById('revealBtn').classList.remove('hidden');
-    document.getElementById('selfButtons').classList.add('hidden');
-    document.getElementById('hintText').textContent='先自己回忆读音，再显示答案。';
-  }
-}
-function revealAnswer(){
-  revealed=true;
-  document.getElementById('romanDisplay').classList.remove('hidden');
-  document.getElementById('revealBtn').classList.add('hidden');
-  document.getElementById('selfButtons').classList.remove('hidden');
-  document.getElementById('hintText').textContent='诚实判断：刚才是否在 1 秒内想起来？';
-}
-function gradeSelf(ok){ grade(ok); }
-function answerChoice(btn,ok){
-  document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
-  btn.classList.add(ok?'correct':'wrong');
-  const correctRoman=session[index].roman;
-  document.querySelectorAll('.choice').forEach(b=>{ if(b.textContent===correctRoman)b.classList.add('correct'); });
-  document.getElementById('feedback').textContent=ok?'正确！':'答错了，正确答案是 '+correctRoman;
-  setTimeout(()=>grade(ok),650);
-}
-function grade(ok){
-  const item=session[index], c=card(item.kana);
-  c.seen=true; state.total++; state.dailyCount=(state.dailyCount||0)+1; state.lastStudyDate=todayKey();
-  if(ok){
-    state.correct++; c.level=Math.min(c.level+1,intervals.length); c.due=Date.now()+intervals[Math.max(0,c.level-1)];
-    c.wrong=Math.max(0,c.wrong-1);
-  }else{
-    c.level=0; c.due=Date.now()+10*60*1000; c.wrong++;
-    if(currentMode==='review' && session.filter(x=>x.kana===item.kana).length<3) session.push(item);
-  }
-  index++; save(); nextCard();
-}
-function renderWrong(){
-  const box=document.getElementById('wrongList'); if(!box)return; box.innerHTML='';
-  const wrong=allItems.filter(i=>card(i.kana).wrong>0).sort((a,b)=>card(b.kana).wrong-card(a.kana).wrong);
-  if(!wrong.length){box.innerHTML='<span class="mini">暂无错题</span>';return}
-  wrong.slice(0,20).forEach(i=>{const s=document.createElement('span');s.className='pill';s.textContent=`${i.kana} ${i.roman} ×${card(i.kana).wrong}`;box.appendChild(s)})
-}
-function renderSchedule(){
-  const box=document.getElementById('scheduleList'); if(!box)return; box.innerHTML='';
-  const items=allItems.filter(i=>card(i.kana).seen).sort((a,b)=>card(a.kana).due-card(b.kana).due).slice(0,8);
-  if(!items.length){box.innerHTML='<div class="mini">还没有学习记录</div>';return}
-  items.forEach(i=>{
-    const d=card(i.kana).due-Date.now();
-    const text=d<=0?'现在':d<3600000?Math.ceil(d/60000)+' 分钟后':d<86400000?Math.ceil(d/3600000)+' 小时后':Math.ceil(d/86400000)+' 天后';
-    const row=document.createElement('div');row.className='schedule-item';
-    row.innerHTML=`<span><strong>${i.kana}</strong> ${i.roman}</span><span class="tag">${text}</span>`;
-    box.appendChild(row);
-  });
-}
-function resetData(){
-  if(confirm('确定清空全部学习记录？')){localStorage.removeItem('kanaScienceState');location.reload();}
-}
-function exitStudy(){ save(); showScreen('home'); }
-function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a; }
+function pool(){let p=items.filter(i=>record(i).seen);return p.length?p:items}
+function startDaily(){let due=items.filter(i=>record(i).seen&&record(i).due<=Date.now()).slice(0,5),unseen=items.filter(i=>!record(i).seen).slice(0,5);session=shuffle([...due,...unseen,...shuffle(pool()).slice(0,5)]);mode='mixed';idx=0;show('practice');next()}
+function startGroup(n){session=shuffle(groups[n].x.map(x=>({h:x[0],k:x[1],r:x[2],g:groups[n].name})));mode='pair';idx=0;show('practice');next()}
+function startFlash(){session=shuffle([...pool()]).slice(0,12);mode='flash';idx=0;show('practice');next()}
+function startAudio(){session=shuffle([...pool()]).slice(0,12);mode='audio';idx=0;show('practice');next()}
+function startPair(){session=shuffle([...pool()]).slice(0,12);mode='pair';idx=0;show('practice');next()}
+function startConfusion(){let set=shuffle([...conf])[0];session=shuffle(items.filter(i=>set.includes(i.r)));mode='confusion';idx=0;show('practice');next()}
+function resetPractice(){audioBtn.classList.add('hidden');reveal.classList.add('hidden');ratings.classList.add('hidden');mainRoman.classList.add('hidden');choices.innerHTML='';feedback.textContent='';mainKana.textContent='';hint.textContent=''}
+function next(){if(idx>=session.length)return finish();current=session[idx];pos.textContent=`${idx+1} / ${session.length}`;resetPractice();let m=mode==='mixed'?shuffle(['flash','audio','pair'])[0]:mode;if(m==='flash')flash();else if(m==='audio')audioQ();else if(m==='pair')pair();else confusion()}
+function flash(){target=Math.random()<.5?'h':'k';label.textContent='科学闪卡 · 无选项回忆';mainKana.textContent=target==='h'?current.h:current.k;hint.textContent='先读出发音，再想出另一套假名。';reveal.classList.remove('hidden')}
+function audioQ(){target=Math.random()<.5?'h':'k';label.textContent='听音辨认';audioBtn.classList.remove('hidden');mainKana.textContent='？';hint.textContent=`点击播放，再选择${target==='h'?'平假名':'片假名'}。`;let opts=shuffle([current,...shuffle(items.filter(i=>i.r!==current.r)).slice(0,3)]);opts.forEach(i=>addChoice(target==='h'?i.h:i.k,i.r===current.r,'a'))}
+function pair(){target=Math.random()<.5?'h':'k';label.textContent='平片桥接';mainKana.textContent=target==='h'?current.h:current.k;hint.textContent=`选择对应的${target==='h'?'片假名':'平假名'}。`;let opts=shuffle([current,...shuffle(items.filter(i=>i.r!==current.r)).slice(0,3)]);opts.forEach(i=>addChoice(target==='h'?i.k:i.h,i.r===current.r,target))}
+function confusion(){target=Math.random()<.5?'h':'k';label.textContent='易混淆专项';mainKana.textContent=target==='h'?current.h:current.k;hint.textContent='注意笔画方向与起笔位置。';let set=conf.find(s=>s.includes(current.r))||[];let opts=shuffle([current,...items.filter(i=>set.includes(i.r)&&i.r!==current.r),...shuffle(items.filter(i=>!set.includes(i.r))).slice(0,2)]).slice(0,4);opts.forEach(i=>addChoice(i.r,i.r===current.r,target))}
+function addChoice(t,ok,dim){let b=document.createElement('button');b.className='choice';b.textContent=t;b.onclick=()=>{document.querySelectorAll('.choice').forEach(x=>x.disabled=true);b.classList.add(ok?'correct':'wrong');feedback.textContent=ok?'正确':'正确答案：'+current.r;grade(ok?2:0,dim);setTimeout(()=>{idx++;next()},600)};choices.appendChild(b)}
+function revealCard(){mainRoman.textContent=`${current.r}　${current.h} ↔ ${current.k}`;mainRoman.classList.remove('hidden');reveal.classList.add('hidden');ratings.classList.remove('hidden');audioBtn.classList.remove('hidden')}
+function rate(v){grade(v,target);idx++;next()}
+function grade(v,dim){let r=record(current);r.seen=true;r[dim]=Math.max(r[dim],v);state.total++;if(v>=2)state.correct++;else r.wrong++;r.due=Date.now()+ints[Math.min(ints.length-1,v)];state.daily++;state.date=today();save()}
+function speak(){if(!current||!speechSynthesis)return; speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(current.h);u.lang='ja-JP';u.rate=parseFloat(speed.value);let v=speechSynthesis.getVoices().find(v=>v.lang&&v.lang.toLowerCase().startsWith('ja'));if(v)u.voice=v;speechSynthesis.speak(u)}
+function finish(){save();show('home')}
 
+function startWriting(isDict){session=shuffle([...pool()]).slice(0,8);mode='writing';dictation=isDict;idx=0;show('writing');setupCanvases();nextWrite()}
+function nextWrite(){if(idx>=session.length)return finish();current=session[idx];target=shuffle(['h','k','both'])[0];writePos.textContent=`${idx+1} / ${session.length}`;writingLabel.textContent=dictation?'听写书写 · 用户自评':'看音书写 · 用户自评';writePrompt.textContent=dictation?'点击播放':current.r;writeInstruction.textContent=target==='h'?'请写出平假名':target==='k'?'请写出片假名':'请分别写出平假名和片假名';single.classList.toggle('hidden',target==='both');double.classList.toggle('hidden',target!=='both');overlayA.textContent=target==='h'?current.h:current.k;overlayB.textContent=current.h;overlayC.textContent=current.k;[overlayA,overlayB,overlayC,writeRatings].forEach(x=>x.classList.add('hidden'));clearCanvases()}
+function showAnswer(){if(target==='both'){overlayB.classList.remove('hidden');overlayC.classList.remove('hidden')}else overlayA.classList.remove('hidden');writeRatings.classList.remove('hidden')}
+function rateWrite(v){grade(v,'w');idx++;nextWrite()}
+function setupCanvases(){['canvasA','canvasB','canvasC'].forEach(id=>{let c=document.getElementById(id),r=c.parentElement.getBoundingClientRect();c.width=r.width*devicePixelRatio;c.height=r.height*devicePixelRatio;c.onpointerdown=e=>startStroke(c,e);c.onpointermove=e=>moveStroke(c,e);c.onpointerup=()=>active=null;c.onpointercancel=()=>active=null})}
+function startStroke(c,e){active=c;c.setPointerCapture(e.pointerId);strokes.push({id:c.id,p:[]});moveStroke(c,e)}
+function moveStroke(c,e){if(active!==c)return;let r=c.getBoundingClientRect(),s=strokes[strokes.length-1];s.p.push([(e.clientX-r.left)*devicePixelRatio,(e.clientY-r.top)*devicePixelRatio]);draw()}
+function draw(){['canvasA','canvasB','canvasC'].forEach(id=>{let c=document.getElementById(id);c.getContext('2d').clearRect(0,0,c.width,c.height)});strokes.forEach(s=>{let c=document.getElementById(s.id),x=c.getContext('2d');if(!s.p.length)return;x.beginPath();x.lineCap='round';x.lineJoin='round';x.lineWidth=10*devicePixelRatio;x.strokeStyle='#111827';x.moveTo(...s.p[0]);s.p.slice(1).forEach(p=>x.lineTo(...p));x.stroke()})}
+function undo(){strokes.pop();draw()}function clearCanvases(){strokes=[];draw()}
+function resetData(){if(confirm('确定清空全部学习记录？')){localStorage.removeItem('kanaPro');location.reload()}}
 render();
 </script>
 </body>
